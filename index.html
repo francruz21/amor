@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Tiempo y Clima</title>
     <style>
-        body{
-            background-image: url('1.webp')
+        body {
+            background-image: url('1.webp');
+            font-family: Arial, sans-serif;
         }
         .container {
             position: relative;
@@ -35,6 +36,7 @@
 
         .imagen1 {
             left: 0;
+            transition: left 1s ease; /* Transición suave para el movimiento */
         }
 
         .imagen2 {
@@ -52,10 +54,30 @@
             background-repeat: repeat-x;
             z-index: 0; /* Asegura que el camino esté detrás de las imágenes */
         }
-        #frase-amor{
+
+        #frase-amor {
             font-size: 15px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             text-align: center;
+        }
+
+        /* Estilos para el reproductor de música */
+        audio {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        audio:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -72,6 +94,12 @@
         <img id="imagen2" class="imagen2" src="casita1.png" alt="Imagen de llegada">
     </div>
 
+    <!-- Reproductor de música de fondo -->
+    <audio autoplay loop controls>
+        <source src="cover.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
     <script>
         // Función para calcular la diferencia de tiempo y mover las imágenes
         function calcularDiferenciaDeTiempo() {
@@ -84,21 +112,16 @@
             var segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
             document.getElementById("result").innerHTML = "Faltan " + dias + " días, " + horas + " horas, " + minutos + " minutos y " + segundos + " segundos para Vernos.";
+
+            // Calcula la posición horizontal de la imagen1 en función de los días restantes
+            var containerWidth = document.querySelector('.container').offsetWidth;
+            var imagen1Width = document.querySelector('.imagen1').offsetWidth;
+            var nuevaPosicion = (containerWidth - imagen1Width) * (1 - (dias / 60)); // 60 días como límite
+            document.querySelector('.imagen1').style.left = nuevaPosicion + 'px';
         }
 
         // Llama a la función cuando se carga la página
         calcularDiferenciaDeTiempo();
-
-        // Función para obtener el clima
-        function obtenerClima() {
-            // Aquí deberías usar una API de clima como OpenWeatherMap o AccuWeather
-            // Para este ejemplo, usaré un mensaje estático
-            var mensajeClima = "El clima de hoy: Soleado";
-            // Muestra el mensaje del clima en un div
-            document.getElementById("clima").innerHTML = mensajeClima;
-        }
-
-        
 
         // Función para mostrar frases de amor aleatorias
         function mostrarFraseAmor() {
@@ -117,9 +140,6 @@
         }
 
         mostrarFraseAmor(); // Llama a la función para mostrar una frase de amor
-
     </script>
-
-   
 </body>
 </html>
