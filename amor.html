@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Tiempo y Clima</title>
+    <style>
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Estilos CSS */
+        #result {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Estilos para las imágenes */
+        .imagen1, .imagen2 {
+            max-width: 15%; /* Ajusta el tamaño máximo de las imágenes */
+            height: auto;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2; /* Asegura que las imágenes estén por encima del camino */
+        }
+
+        .imagen1 {
+            left: 0;
+        }
+
+        .imagen2 {
+            right: 0;
+        }
+
+        /* Estilos para el camino */
+        .camino {
+            margin-top: 85px;
+            padding: 10px;
+            position: absolute;
+            width: 100%;
+            height: -125px; /* Ajusta la altura del camino según tu preferencia */
+            background-image: url('rojo.png'); /* Reemplaza 'rojo.png' con la imagen de tu camino */
+            background-repeat: repeat-x;
+            z-index: 0; /* Asegura que el camino esté detrás de las imágenes */
+        }
+    </style>
+</head>
+<body>
+    <h1>Cuanto falta para vernos amor?</h1>
+    <div id="result"></div>
+    <div class="container">
+        <!-- Caminito -->
+        <div class="camino"></div>
+        <!-- Imagen de partida -->
+        <img id="imagen1" class="imagen1" src="icono.png" alt="Imagen de partida">
+        <!-- Imagen de llegada -->
+        <img id="imagen2" class="imagen2" src="casita1.png" alt="Imagen de llegada">
+    </div>
+
+    <script>
+        // Función para calcular la diferencia de tiempo y mover las imágenes
+        function calcularDiferenciaDeTiempo() {
+            var fechaActual = new Date();
+            var fechaFutura = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 2, fechaActual.getDate());
+            var diferencia = fechaFutura - fechaActual;
+            var dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            var horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            var segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            document.getElementById("result").innerHTML = "Faltan " + dias + " días, " + horas + " horas, " + minutos + " minutos y " + segundos + " segundos para Vernos.";
+        }
+
+        // Llama a la función cuando se carga la página
+        calcularDiferenciaDeTiempo();
+
+        // Función para obtener el clima
+        function obtenerClima() {
+            // Aquí deberías usar una API de clima como OpenWeatherMap o AccuWeather
+            // Para este ejemplo, usaré un mensaje estático
+            var mensajeClima = "El clima de hoy: Soleado";
+            // Muestra el mensaje del clima en un div
+            document.getElementById("clima").innerHTML = mensajeClima;
+        }
+
+        obtenerClima(); // Llama a la función para obtener el clima
+
+        // Función para mostrar frases de amor aleatorias
+        function mostrarFraseAmor() {
+            var frases = [
+                "Eres mi razón de sonreír todos los días.",
+                "Contigo cada momento es especial.",
+                "El amor es un viaje y estoy feliz de estar en este viaje contigo.",
+                "Eres mi amor verdadero, mi inspiración, mi todo.",
+                "Nuestro amor es un cuento de hadas que se hace realidad cada día.",
+                "Estar contigo me hace la persona más feliz del mundo."
+            ];
+            // Selecciona una frase aleatoria
+            var fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+            // Muestra la frase en un div
+            document.getElementById("frase-amor").innerHTML = fraseAleatoria;
+        }
+
+        mostrarFraseAmor(); // Llama a la función para mostrar una frase de amor
+
+    </script>
+    <div id="clima"></div> <!-- Aquí se mostrará el clima -->
+    <div id="frase-amor"></div> <!-- Aquí se mostrará la frase de amor -->
+</body>
+</html>
