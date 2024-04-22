@@ -15,7 +15,7 @@
 
         /* Estilos CSS */
         #result {
-            font-size: 24px;
+            font-size: 35px;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -49,11 +49,17 @@
             background-repeat: repeat-x;
             z-index: 0; /* Asegura que el camino esté detrás de las imágenes */
         }
+        #frase-amor{
+            font-size: 15px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h1>Cuanto falta para vernos amor?</h1>
+    <h1 style="text-align: center;">Cuanto falta para vernos amor?</h1>
     <div id="result"></div>
+    <div id="frase-amor"></div> <!-- Aquí se mostrará la frase de amor -->
     <div class="container">
         <!-- Caminito -->
         <div class="camino"></div>
@@ -89,7 +95,7 @@
             document.getElementById("clima").innerHTML = mensajeClima;
         }
 
-        obtenerClima(); // Llama a la función para obtener el clima
+        
 
         // Función para mostrar frases de amor aleatorias
         function mostrarFraseAmor() {
@@ -110,7 +116,7 @@
         mostrarFraseAmor(); // Llama a la función para mostrar una frase de amor
 
     </script>
-    <div id="clima"></div> <!-- Aquí se mostrará el clima -->
-    <div id="frase-amor"></div> <!-- Aquí se mostrará la frase de amor -->
+
+   
 </body>
 </html>
