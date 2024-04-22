@@ -113,34 +113,24 @@
             var minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
             var segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
-            document.getElementById("result").innerHTML = "Faltan " + dias + " días, " + horas + " horas, " + minutos + " minutos y <span id='segundos'>" + segundos + "</span> segundos para Vernos.";
+            document.getElementById("result").innerHTML = "Faltan " + dias + " días, " + horas + " horas, " + minutos + " minutos y <span id='segundos'>" + segundos + "</span> segundos.";
 
-            // Actualiza los segundos cada segundo
-            setInterval(function() {
-                segundos--;
-                if (segundos < 0) {
-                    segundos = 59;
-                    minutos--;
-                    if (minutos < 0) {
-                        minutos = 59;
-                        horas--;
-                        if (horas < 0) {
-                            horas = 23;
-                            dias--;
-                            if (dias < 0) {
-                                // Si los días llegan a 0, detén el contador
-                                clearInterval(intervalId);
-                            }
-                        }
-                    }
-                }
-                // Actualiza el contenido de los segundos
-                document.getElementById('segundos').textContent = segundos;
-            }, 1000);
+            // Retorna los valores de tiempo
+            return {
+                dias: dias,
+                horas: horas,
+                minutos: minutos,
+                segundos: segundos
+            };
         }
 
-        // Llama a la función cuando se carga la página
-        calcularDiferenciaDeTiempo();
+        // Actualiza el tiempo restante cada segundo
+        setInterval(function() {
+            var tiempoRestante = calcularDiferenciaDeTiempo();
+
+            // Actualiza el contenido de los segundos
+            document.getElementById('segundos').textContent = tiempoRestante.segundos;
+        }, 1000);
 
         // Función para mostrar frases de amor aleatorias
         function mostrarFraseAmor() {
