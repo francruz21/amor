@@ -33,15 +33,18 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 2; /* Asegura que las imágenes estén por encima del camino */
+         
         }
 
         .imagen1 {
+            
+            z-index: 2;
             left: 0;
             transition: left 1s ease; /* Transición suave para el movimiento */
         }
 
         .imagen2 {
+            z-index:1 ;
             right: 0;
         }
 
@@ -103,18 +106,19 @@
     </audio>
 
     <script>
+        
         // Función para calcular la diferencia de tiempo y mover las imágenes
         function calcularDiferenciaDeTiempo() {
             var fechaActual = new Date();
-            var fechaFutura = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 2, fechaActual.getDate());
+            var fechaFutura = new Date(2024, 5, 22);
             var diferencia = fechaFutura - fechaActual;
             var dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
             var horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
             var segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
+    
             document.getElementById("result").innerHTML = "Faltan " + dias + " días, " + horas + " horas, " + minutos + " minutos y <span id='segundos'>" + segundos + "</span> segundos.";
-
+    
             // Retorna los valores de tiempo
             return {
                 dias: dias,
@@ -123,15 +127,28 @@
                 segundos: segundos
             };
         }
+    
+    
+        var pixelesPorDia =45; // Declaración de la variable global
 
-        // Actualiza el tiempo restante cada segundo
-        setInterval(function() {
-            var tiempoRestante = calcularDiferenciaDeTiempo();
+function moverImagen() {
+    var tiempoRestante = calcularDiferenciaDeTiempo();
+    var diasTranscurridos = tiempoRestante.dias;
+    
+    // Incrementa la variable pixelesPorDia en 10
+    pixelesPorDia += 10;
 
-            // Actualiza el contenido de los segundos
-            document.getElementById('segundos').textContent = tiempoRestante.segundos;
-        }, 1000);
+    // Mueve la imagen
+    document.getElementById('imagen1').style.left = pixelesPorDia + 'px';
+}
 
+// Actualiza el tiempo restante y la posición de la imagen1 cada segundo
+moverImagen();
+setInterval(function() {
+    calcularDiferenciaDeTiempo();
+ 
+}, 1000);
+    
         // Función para mostrar frases de amor aleatorias
         function mostrarFraseAmor() {
             var frases = [
@@ -147,7 +164,7 @@
             // Muestra la frase en un div
             document.getElementById("frase-amor").innerHTML = fraseAleatoria;
         }
-
+    
         mostrarFraseAmor(); // Llama a la función para mostrar una frase de amor
     </script>
 </body>
