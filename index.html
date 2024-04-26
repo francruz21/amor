@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Tiempo y Clima</title>
+    <title>Temporizador de Amor</title>
     <style>
         body {
             background-image: url('1.webp');
@@ -21,6 +21,7 @@
 
         /* Estilos CSS */
         #result {
+            align-items: center;
             font-size: 35px;
             margin-bottom: 20px;
             text-align: center;
@@ -64,6 +65,7 @@
             font-size: 15px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             text-align: center;
+            margin-top: 20px; /* Añade espacio entre las imágenes y las frases de amor */
         }
 
         /* Estilos para el reproductor de música */
@@ -84,11 +86,28 @@
         audio:focus {
             outline: none;
         }
+
+        .fotos {
+    display: flex; /* Usa el modelo de caja flexible */
+    justify-content: center; /* Centra horizontalmente los elementos dentro del contenedor */
+    align-items: center; /* Centra verticalmente los elementos dentro del contenedor */
+    height: 80vh; /* Ajusta la altura del contenedor al 80% del tamaño de la ventana */
+    img{
+        height: 420px;
+        width: auto;
+    }
+}
     </style>
 </head>
 <body>
     <h1 style="text-align: center;">Cuanto falta para vernos amor?</h1>
-    <div id="result"></div>
+    <div id="result">
+        
+    </div>
+    <div class="fotos">
+        <div id="imagenes"></div>
+    </div>
+    
     <div id="frase-amor"></div> <!-- Aquí se mostrará la frase de amor -->
     <div class="container">
         <!-- Caminito -->
@@ -106,7 +125,6 @@
     </audio>
 
     <script>
-        
         // Función para calcular la diferencia de tiempo y mover las imágenes
         function calcularDiferenciaDeTiempo() {
             var fechaActual = new Date();
@@ -116,9 +134,9 @@
             var horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
             var segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-    
+
             document.getElementById("result").innerHTML = "Faltan " + dias + " días, " + horas + " horas, " + minutos + " minutos y <span id='segundos'>" + segundos + "</span> segundos.";
-    
+
             // Retorna los valores de tiempo
             return {
                 dias: dias,
@@ -127,28 +145,27 @@
                 segundos: segundos
             };
         }
-    
-    
-        var pixelesPorDia =45; // Declaración de la variable global
 
-function moverImagen() {
-    var tiempoRestante = calcularDiferenciaDeTiempo();
-    var diasTranscurridos = tiempoRestante.dias;
-    
-    // Incrementa la variable pixelesPorDia en 10
-    pixelesPorDia += 10;
+        var pixelesPorDia = 45; // Declaración de la variable global
 
-    // Mueve la imagen
-    document.getElementById('imagen1').style.left = pixelesPorDia + 'px';
-}
+        function moverImagen() {
+            var tiempoRestante = calcularDiferenciaDeTiempo();
+            var diasTranscurridos = tiempoRestante.dias;
 
-// Actualiza el tiempo restante y la posición de la imagen1 cada segundo
-moverImagen();
-setInterval(function() {
-    calcularDiferenciaDeTiempo();
- 
-}, 1000);
-    
+            // Incrementa la variable pixelesPorDia en 10
+            pixelesPorDia += 10;
+
+            // Mueve la imagen
+            document.getElementById('imagen1').style.left = pixelesPorDia + 'px';
+        }
+
+        // Actualiza el tiempo restante y la posición de la imagen1 cada segundo
+        moverImagen();
+        setInterval(function() {
+            calcularDiferenciaDeTiempo();
+            moverImagen();
+        }, 1000);
+
         // Función para mostrar frases de amor aleatorias
         function mostrarFraseAmor() {
             var frases = [
@@ -164,8 +181,50 @@ setInterval(function() {
             // Muestra la frase en un div
             document.getElementById("frase-amor").innerHTML = fraseAleatoria;
         }
-    
-        mostrarFraseAmor(); // Llama a la función para mostrar una frase de amor
+
+        // Llama a la función para mostrar una frase de amor
+        mostrarFraseAmor();
+
+        // Función para cargar imágenes aleatorias de la carpeta "imagenes"
+        function cargarImagenAleatoria() {
+            var imagenes = [
+                "imagenes/imagen1.jpg",
+                "imagenes/imagen2.jpg",
+                "imagenes/imagen3.jpg",
+                "imagenes/imagen4.jpg",
+                "imagenes/imagen5.jpg",
+                "imagenes/imagen6.jpg",
+                "imagenes/imagen7.jpg",
+                "imagenes/imagen8.jpg",
+                "imagenes/imagen9.jpg",
+                "imagenes/imagen10.jpg",
+                "imagenes/imagen11.jpg",
+                "imagenes/imagen12.jpg",
+                "imagenes/imagen13.jpg",
+                "imagenes/imagen14.jpg",
+                "imagenes/imagen15.jpg",
+                "imagenes/imagen16.jpg",
+                "imagenes/imagen17.jpg",
+                "imagenes/imagen18.jpg",
+                "imagenes/imagen19.jpg",
+                "imagenes/imagen20.jpg",
+                "imagenes/imagen21.jpg",
+                "imagenes/imagen22.jpg",
+                "imagenes/imagen23.jpg"
+                // Agrega aquí más rutas de imágenes según sea necesario
+            ];
+            // Selecciona una imagen aleatoria
+            var imagenAleatoria = imagenes[Math.floor(Math.random() * imagenes.length)];
+            // Crea un elemento de imagen
+            var img = document.createElement('img');
+            // Establece la ruta de la imagen aleatoria
+            img.src = imagenAleatoria;
+            // Agrega la imagen antes de las frases de amor
+            document.getElementById('imagenes').insertAdjacentElement('beforebegin', img);
+        }
+
+        // Llama a la función para cargar una imagen aleatoria
+        cargarImagenAleatoria();
     </script>
 </body>
 </html>
