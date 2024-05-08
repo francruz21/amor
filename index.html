@@ -119,8 +119,7 @@
     </div>
 
     <!-- Reproductor de música de fondo -->
-    <audio autoplay loop controls>
-        <source src="cover.mp3" type="audio/mp3">
+    <audio autoplay loop controls id="reproductor">
         Your browser does not support the audio element.
     </audio>
 
@@ -169,12 +168,12 @@
         // Función para mostrar frases de amor aleatorias
         function mostrarFraseAmor() {
             var frases = [
-                "Eres mi razón de sonreír todos los días.",
-                "Contigo cada momento es especial.",
-                "El amor es un viaje y estoy feliz de estar en este viaje contigo.",
-                "Eres mi amor verdadero, mi inspiración, mi todo.",
-                "Nuestro amor es un cuento de hadas que se hace realidad cada día.",
-                "Estar contigo me hace la persona más feliz del mundo."
+                "Eres mi razón de sonreír todos los días.♥",
+                "Contigo cada momento es especial.♥",
+                "El amor es un viaje y estoy feliz de estar en este viaje contigo.♥",
+                "Eres mi amor verdadero, mi inspiración, mi todo.♥",
+                "Nuestro amor es un cuento de hadas que se hace realidad cada día.♥",
+                "Estar contigo me hace la persona más feliz del mundo.♥"
             ];
             // Selecciona una frase aleatoria
             var fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
@@ -185,8 +184,8 @@
         // Llama a la función para mostrar una frase de amor
         mostrarFraseAmor();
 
-        // Función para cargar imágenes aleatorias de la carpeta "imagenes"
-        function cargarImagenAleatoria() {
+        // Función para cargar imágenes y reproducir audio aleatorios
+        function cargarImagenYAudioAleatorios() {
             var imagenes = [
                 "imagenes/imagen1.jpg",
                 "imagenes/imagen2.jpg",
@@ -210,21 +209,40 @@
                 "imagenes/imagen20.jpeg",
                 "imagenes/imagen21.jpeg",
                 "imagenes/imagen22.jpeg",
-                "imagenes/imagen23.jpeg"
+                "imagenes/imagen23.jpeg",
+                "imagenes/imagen24.jpeg",
+                "imagenes/imagen25.jpeg",
+                "imagenes/imagen26.jpeg",
                 // Agrega aquí más rutas de imágenes según sea necesario
             ];
+
+            var audios = [
+                "audio1.mp3",
+                "audio2.mp3",
+                "audio3.mp3",
+                // Agrega aquí más rutas de archivos de audio según sea necesario
+            ];
+
             // Selecciona una imagen aleatoria
             var imagenAleatoria = imagenes[Math.floor(Math.random() * imagenes.length)];
+            // Selecciona un archivo de audio aleatorio
+            var audioAleatorio = audios[Math.floor(Math.random() * audios.length)];
+
             // Crea un elemento de imagen
             var img = document.createElement('img');
             // Establece la ruta de la imagen aleatoria
             img.src = imagenAleatoria;
             // Agrega la imagen antes de las frases de amor
             document.getElementById('imagenes').insertAdjacentElement('beforebegin', img);
+
+            // Establece la fuente de audio aleatoria en el reproductor de audio
+            var reproductor = document.getElementById('reproductor');
+            reproductor.src = audioAleatorio;
+            reproductor.play(); // Reproduce el audio
         }
 
-        // Llama a la función para cargar una imagen aleatoria
-        cargarImagenAleatoria();
+        // Llama a la función para cargar una imagen y reproducir un audio aleatorio
+        cargarImagenYAudioAleatorios();
     </script>
 </body>
 </html>
